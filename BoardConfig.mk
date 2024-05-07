@@ -6,9 +6,9 @@
 
 # Devices RMMSM8953
 DEVICE_PATH := device/realme/RMMSM8953
-USES_DEVICE_RMMSM8953 := true
+#USES_DEVICE_RMMSM8953 := true
 
-LOCAL_PATH := device/realme/RMMSM8953
+#LOCAL_PATH := device/realme/RMMSM8953
 
 # Architecture
 TARGET_ARCH := arm64
@@ -23,11 +23,11 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 
-TARGET_SUPPORTS_64_BIT_APPS := true
+#TARGET_SUPPORTS_64_BIT_APPS := true
 
-TARGET_CPU_ABI_LIST := arm64-v8a,armeabi-v7a,armeabi
-TARGET_CPU_ABI_LIST_64_BIT := arm64-v8a
-TARGET_CPU_ABI_LIST_32_BIT := armeabi-v7a,armeabi
+#TARGET_CPU_ABI_LIST := arm64-v8a,armeabi-v7a,armeabi
+#TARGET_CPU_ABI_LIST_64_BIT := arm64-v8a
+#TARGET_CPU_ABI_LIST_32_BIT := armeabi-v7a,armeabi
 
 TARGET_BOARD_PLATFORM := msm8953
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
@@ -43,12 +43,22 @@ TARGET_HW_DISK_ENCRYPTION := true
 TARGET_PROVIDES_KEYMASTER := true
 
 # Kernel
+BOARD_BOOTIMG_HEADER_VERSION := 1
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x01000000
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
+TARGET_PREBUILT_DTB := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
+TARGET_PREBUILT_KERNEL :=
+
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) -
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_TAGS_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE)
+
 
 # Partition Size
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
