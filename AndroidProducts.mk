@@ -5,11 +5,11 @@
 #
 
 # Product Makefiles
-PRODUCT_MAKEFILES :=
+PRODUCT_MAKEFILES := \
       $(LOCAL_DIR)/twrp_RMMSM8953.mk
       
 # Lunch
-COMMON_LUNCH_CHOICES :=
+COMMON_LUNCH_CHOICES := \
        twrp_RMMSM8953-user \
        twrp_RMMSM8953-userdebug \
        twrp_RMMSM8953-eng
